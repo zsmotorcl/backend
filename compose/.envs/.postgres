@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=zsmotor
+POSTGRES_USER=RBgldcUcZKDDVoWQoQIYqAgKQCYcncIS
+POSTGRES_PASSWORD=zohX8C3OkvYExNsmg727AjENBbdJGZpM4ohxVwKeFyPjeQrtFKQDP3HYzJZNFx8H
