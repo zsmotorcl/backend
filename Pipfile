@@ -27,6 +27,11 @@ django-extensions = "==3.2.3" # https://github.com/django-extensions/django-exte
 django-coverage-plugin = "==3.1.0" # https://github.com/nedbat/django_coverage_plugin
 pytest-django = "==4.9.0" # https://github.com/pytest-dev/pytest-django
 
+# This is the official microsoft package for connect mssql with Django.
+# The 5.1 PR is not merge yet, but this is a temporary solution till they merge it
+# and we can install LTS version
+mssql-django = { git = "https://github.com/microsoft/mssql-django", ref = "refs/pull/397/head" } # https://github.com/microsoft/mssql-django
+
 # Django REST Framework
 djangorestframework = "==3.15.2" # https://github.com/encode/django-rest-framework
 django-cors-headers = "==4.6.0" # https://github.com/adamchainz/django-cors-headers
