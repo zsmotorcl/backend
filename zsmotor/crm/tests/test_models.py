@@ -1,10 +1,12 @@
 import pytest
 
-from zsmotor.crm.models import CarBrand, Location, Warehouse
+from zsmotor.crm.models import CarBrand
+from zsmotor.crm.models import Location
+from zsmotor.crm.models import Warehouse
 
 
 @pytest.mark.parametrize(
-    "model, expected",
+    ("model", "expected"),
     [
         (
             CarBrand,
@@ -16,7 +18,7 @@ from zsmotor.crm.models import CarBrand, Location, Warehouse
         ),
         (
             Warehouse,
-            'SELECT "TABCARAC"."KOTABLA", "TABCARAC"."KOCARAC", "TABCARAC"."NOKOCARAC" FROM "TABCARAC" WHERE "TABCARAC"."KOTABLA" = BODEGAS',
+            'SELECT "TABCARAC"."KOTABLA", "TABCARAC"."KOCARAC", "TABCARAC"."NOKOCARAC" FROM "TABCARAC" WHERE "TABCARAC"."KOTABLA" = BODEGAS',  # noqa: E501
         ),
     ],
     ids=["car-brands", "locations", "warehouses"],
