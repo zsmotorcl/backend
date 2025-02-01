@@ -38,7 +38,8 @@ WORKDIR ${APP_HOME}
 
 # devcontainer dependencies and utils
 RUN apt-get update && apt-get install --no-install-recommends -y \
-  sudo git bash-completion nano ssh
+  sudo git bash-completion nano ssh curl dpkg apt-transport-https
+
 
 # Create devcontainer user and add it to sudoers
 RUN groupadd --gid 1000 dev-user \
@@ -47,16 +48,26 @@ RUN groupadd --gid 1000 dev-user \
   && chmod 0440 /etc/sudoers.d/dev-user
 
 
+# Previous configuration and installation of mssql-django package
+RUN curl -sSL -O https://packages.microsoft.com/config/debian/$(grep VERSION_ID /etc/os-release | cut -d '"' -f 2)/packages-microsoft-prod.deb
+RUN dpkg -i packages-microsoft-prod.deb
+RUN rm packages-microsoft-prod.deb
+
+
 # Install required system dependencies
-RUN apt-get update && apt-get install --no-install-recommends -y \
+RUN apt-get update && ACCEPT_EULA=Y apt-get install --no-install-recommends -y \
   # psycopg dependencies
   libpq-dev  \
   wait-for-it \
   # Translations dependencies
   gettext \
+  # mssql-django dependencies
+  msodbcsql18 \
+  unixodbc-dev \
   # cleaning up unused files
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*
+
 
 # All absolute dir copies ignore workdir instruction. All relative dir copies are wrt to the workdir instruction
 # copy python dependency wheels from python-build-stage

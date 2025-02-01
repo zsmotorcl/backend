@@ -45,8 +45,23 @@ USE_TZ = True
 
 # DATABASES
 # ------------------------------------------------------------------------------
+CRM_DATABASE = "random"
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {"default": env.db("DATABASE_URL")}
+DATABASES = {
+    "default": env.db("DATABASE_URL"),
+    CRM_DATABASE: {
+        "ENGINE": "mssql",
+        "NAME": env("RANDOM_DB_NAME"),
+        "USER": env("RANDOM_DB_USER"),
+        "PASSWORD": env("RANDOM_DB_PASS"),
+        "HOST": env("RANDOM_DB_HOST"),
+        "PORT": env("RANDOM_DB_PORT"),
+        "OPTIONS": {
+            "driver": "ODBC Driver 18 for SQL Server",
+            "extra_params": "Encrypt=no;TrustServerCertificate=yes;",
+        },
+    },
+}
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
@@ -87,6 +102,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "zsmotor.users",
+    "zsmotor.crm",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

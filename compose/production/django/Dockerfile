@@ -39,14 +39,26 @@ RUN addgroup --system django \
     && adduser --system --ingroup django django
 
 
-# Install required system dependencies
 RUN apt-get update && apt-get install --no-install-recommends -y \
+  curl dpkg apt-transport-https
+
+
+# Previous configuration and installation of mssql-django package
+RUN curl -sSL -O https://packages.microsoft.com/config/debian/$(grep VERSION_ID /etc/os-release | cut -d '"' -f 2)/packages-microsoft-prod.deb
+RUN dpkg -i packages-microsoft-prod.deb
+RUN rm packages-microsoft-prod.deb
+
+
+# Install required system dependencies
+RUN apt-get update && ACCEPT_EULA=Y apt-get install --no-install-recommends -y \
   # psycopg dependencies
-  libpq-dev \
+  libpq-dev  \
+  wait-for-it \
   # Translations dependencies
   gettext \
-  # entrypoint
-  wait-for-it \
+  # mssql-django dependencies
+  msodbcsql18 \
+  unixodbc-dev \
   # cleaning up unused files
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*
