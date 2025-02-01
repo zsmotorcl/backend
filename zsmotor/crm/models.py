@@ -14,13 +14,12 @@ class BaseRandomCRMModel(models.Model):
 
     class Meta:
         abstract = True
-        managed = False
 
     def __str__(self):
         return " | ".join(
             [
                 getattr(self, field.name).strip()
-                for field in self._meta.model._meta.fields  # noqa
+                for field in self._meta.model._meta.fields  # noqa: SLF001
             ],
         )
 
@@ -39,6 +38,7 @@ class Warehouse(BaseRandomCRMModel):
     objects = WarehouseManager()
 
     class Meta:
+        managed = False
         db_table = "TABCARAC"
 
 
@@ -48,6 +48,7 @@ class Location(BaseRandomCRMModel):
     name = models.CharField(db_column="NOKOSU")
 
     class Meta:
+        managed = False
         db_table = "TABSU"
 
 
@@ -56,4 +57,5 @@ class CarBrand(BaseRandomCRMModel):
     description = models.CharField(db_column="NOKOMR")
 
     class Meta:
+        managed = False
         db_table = "TABMR"
