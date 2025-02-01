@@ -11,7 +11,6 @@ class BaseRandomManager(models.Manager):
 
 
 class BaseRandomCRMModel(models.Model):
-
     # managers
     objects = BaseRandomManager()
 
@@ -24,7 +23,7 @@ class BaseRandomCRMModel(models.Model):
             [
                 getattr(self, field.name).strip()
                 for field in self._meta.model._meta.fields
-            ]
+            ],
         )
 
 

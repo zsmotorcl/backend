@@ -60,7 +60,7 @@ DATABASES = {
             "driver": "ODBC Driver 18 for SQL Server",
             "extra_params": "Encrypt=no;TrustServerCertificate=yes;",
         },
-    }
+    },
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
