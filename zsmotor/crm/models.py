@@ -1,5 +1,3 @@
-from typing import Any
-
 from django.conf import settings
 from django.db import models
 
@@ -22,7 +20,7 @@ class BaseRandomCRMModel(models.Model):
         return " | ".join(
             [
                 getattr(self, field.name).strip()
-                for field in self._meta.model._meta.fields
+                for field in self._meta.model._meta.fields  # noqa
             ],
         )
 
