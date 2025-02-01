@@ -24,6 +24,25 @@ class BaseRandomCRMModel(models.Model):
         )
 
 
+class CarBrand(BaseRandomCRMModel):
+    name = models.CharField(db_column="KOMR", primary_key=True)
+    description = models.CharField(db_column="NOKOMR")
+
+    class Meta:
+        managed = False
+        db_table = "TABMR"
+
+
+class Location(BaseRandomCRMModel):
+    company = models.CharField(db_column="EMPRESA")
+    code = models.CharField(db_column="KOSU", primary_key=True)
+    name = models.CharField(db_column="NOKOSU")
+
+    class Meta:
+        managed = False
+        db_table = "TABSU"
+
+
 class WarehouseManager(BaseRandomManager):
     def get_queryset(self):
         return super().get_queryset().filter(identifier="BODEGAS")
@@ -40,22 +59,3 @@ class Warehouse(BaseRandomCRMModel):
     class Meta:
         managed = False
         db_table = "TABCARAC"
-
-
-class Location(BaseRandomCRMModel):
-    company = models.CharField(db_column="EMPRESA")
-    code = models.CharField(db_column="KOSU", primary_key=True)
-    name = models.CharField(db_column="NOKOSU")
-
-    class Meta:
-        managed = False
-        db_table = "TABSU"
-
-
-class CarBrand(BaseRandomCRMModel):
-    name = models.CharField(db_column="KOMR", primary_key=True)
-    description = models.CharField(db_column="NOKOMR")
-
-    class Meta:
-        managed = False
-        db_table = "TABMR"
